@@ -11,40 +11,34 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import core.Driver;
+import pages.InicialPage;
+
 public class LojaVirtualTest extends BaseTest{
-		
+	InicialPage inicialPage = new InicialPage();
 	@Test
 	public void testPesquisaLivro() {
-		WebElement pesquisa = driver.findElement(By.id("search"));
-		pesquisa.sendKeys("fortaleza digital", Keys.ENTER);
-		WebElement elTituloLivro = driver.findElement(By.xpath("//h2/a"));
-		String livro = elTituloLivro.getText();
+		inicialPage.setPesquisa("fortaleza digital", Keys.ENTER);
+		String livro = inicialPage.getTituloLivro();
 		Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
-		WebElement elPreco = driver.findElement(By.cssSelector("#product-price-44 > span"));
-		String preco = elPreco.getText();
-		Assert.assertEquals("R$519,908", preco);
-		
-		
+		String preco = inicialPage.getPreco();
+		Assert.assertEquals("R$519,90", preco);
 	}
 	
 	@Test
 	public void testPesquisaLivro_assertThat() {
-		WebElement pesquisa = driver.findElement(By.id("search"));
-		pesquisa.sendKeys("fortaleza digital", Keys.ENTER);
-		WebElement elTituloLivro = driver.findElement(By.xpath("//h2/a"));
-		String livro = elTituloLivro.getText();
+		inicialPage.setPesquisa("fortaleza digital", Keys.ENTER);
+		String livro = inicialPage.getTituloLivro();
 		Assert.assertEquals("[PRODUTO DE EXEMPLO] - Fortaleza Digital", livro);
-		WebElement elPreco = driver.findElement(By.cssSelector("#product-price-44 > span"));
-		String preco = elPreco.getText();
+		String preco = inicialPage.getPreco();
 		assertThat("R$519,90", is(preco));
 		assertThat("R$519,908", containsString(preco));
 	}
 	
 	@Test
 	public void testClickLista() {
-		WebElement pesquisa = driver.findElement(By.id("search"));
-		pesquisa.sendKeys("html", Keys.ENTER);
-		List<WebElement> elLivros = driver.findElements(By.cssSelector("ul.products-grid > li"));
+		inicialPage.setPesquisa("html", Keys.ENTER);
+		List<WebElement> elLivros = Driver.getDriver().findElements(By.cssSelector("ul.products-grid > li"));
 		for (WebElement elLivro : elLivros) {
 			WebElement elTituloLivro = elLivro.findElement(By.cssSelector("h2 > a"));
 			String tituloLivro = elTituloLivro.getText();
