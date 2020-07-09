@@ -35,19 +35,13 @@ public class LojaVirtualTest extends BaseTest{
 		assertThat("R$519,908", containsString(preco));
 	}
 	
+	
 	@Test
 	public void testClickLista() {
 		inicialPage.setPesquisa("html", Keys.ENTER);
-		List<WebElement> elLivros = Driver.getDriver().findElements(By.cssSelector("ul.products-grid > li"));
-		for (WebElement elLivro : elLivros) {
-			WebElement elTituloLivro = elLivro.findElement(By.cssSelector("h2 > a"));
-			String tituloLivro = elTituloLivro.getText();
-			if (tituloLivro.contains("Ajax com Java")) {
-				WebElement elPreco = elLivro.findElement(By.cssSelector("span.price"));
-				assertThat("R$444,50", is(elPreco.getText()));
-				break;
-			}
-		}
+		
+		String preco = inicialPage.getPrecoLista();
+		assertThat("R$444,50", is(preco));
 	}
 	
 	
