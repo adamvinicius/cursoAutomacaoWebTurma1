@@ -32,13 +32,13 @@ public class InicialPage {
 	}
 	
 	public String getPrecoLista() {
-		List<WebElement> livros = Driver.getDriver().findElements(By.cssSelector(elLivros));
+		List<WebElement> livros = inicialMap.livros.getElements();
 		for (WebElement elLivro : livros) {
-			WebElement tituloLivro = elLivro.findElement(By.cssSelector(elTituloLivroLista));
-			String titulo = tituloLivro.getText();
+			inicialMap.tituloLivroLista.setWebElement(elLivro);
+			String titulo = inicialMap.tituloLivroLista.getText();
 			if (titulo.contains("Ajax com Java")) {
-				WebElement preco = elLivro.findElement(By.cssSelector(elPrecoLista));
-				return preco.getText();
+				inicialMap.precoLista.setWebElement(elLivro);
+				return inicialMap.precoLista.getText();
 			}
 		}
 		return null;
