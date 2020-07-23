@@ -1,13 +1,19 @@
 package steps;
 
+import static org.junit.Assert.assertEquals;
+
+import org.openqa.selenium.Keys;
+
 import core.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import pages.InicialPage;
 
 public class InicialSteps{
+	InicialPage inicialPage = new InicialPage();
 	@Dado("que estou na pagina loja virtual")
 	public void queEstouNaPaginaLojaVirtual() {
 	    Driver.setUrl("http://www.lojaexemplodelivros.com.br/");
@@ -15,37 +21,21 @@ public class InicialSteps{
 	
 	@Quando("realizo a busca do livro {string}")
 	public void realizoABuscaDoLivro(String titulo) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    inicialPage.setPesquisa(titulo, Keys.ENTER);
 	}
 	@Entao("valido o titulo sendo {string}")
 	public void validoOTituloSendo(String titulo) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals(titulo, inicialPage.getTituloLivro());
 	}
 	@Entao("o preco sendo {string}")
 	public void oPrecoSendo(String preco) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	    assertEquals(preco, inicialPage.getPreco());
 	}
 	@Quando("clico no livro pesquisado")
 	public void clicoNoLivroPesquisado() {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
-	}
-	@Entao("confirmo o titulo sendo {string} e o preco sendo {string}")
-	public void confirmoOTituloSendoEOPrecoSendo(String titulo, String preco) {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new io.cucumber.java.PendingException();
+	   inicialPage.clickTitulo();
 	}
 	
-	@Before
-	public void abreNavegador() {
-		Driver.abreNavegador();
-	}
 	
-	@After
-	public void fechaNavegador() {
-		Driver.fechaNavegador();
-	}
+	
 }
